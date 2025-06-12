@@ -1,8 +1,3 @@
-
-**Problem 2: MaximizeTrueLoveByAdviceFlips** ka **optimized and well-commented C++ solution** — full professional quality, DP (0/1 Knapsack) approach ke sath.
-## ✅ `solution.cpp`
-
-```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -23,14 +18,12 @@ int getMinFlipsToReachTwoOnes(const vector<int>& advice) {
     int currentPositives = count(advice.begin(), advice.end(), 1);
     if (currentPositives >= 2) return 0; // Already eligible
 
-    vector<int> flipOptions;
-    for (int a : advice) {
-        if (a == 0 || a == -1)
-            flipOptions.push_back(1);  // flip cost = 1
-    }
-
     int required = 2 - currentPositives;
-    return (flipOptions.size() >= required) ? required : 1e9; // if not enough, mark as impossible
+    int possibleFlips = count_if(advice.begin(), advice.end(), [](int a) {
+        return a == 0 || a == -1;
+    });
+
+    return (possibleFlips >= required) ? required : 1e9; // Mark as impossible if not enough
 }
 
 // Main logic to maximize TrueLove count with DP
@@ -48,12 +41,9 @@ int maximizeTrueLove(
         bool eligible = (readiness[i - 1] >= 80 && feelings[i - 1]);
 
         for (int j = 0; j <= k; j++) {
-            // Case 1: don't include this person
-            dp[i][j] = dp[i - 1][j];
-
-            // Case 2: include this person if eligible and enough flips
+            dp[i][j] = dp[i - 1][j]; // Not taking this person
             if (eligible && j >= cost && cost <= k) {
-                dp[i][j] = max(dp[i][j], dp[i - 1][j - cost] + 1);
+                dp[i][j] = max(dp[i][j], dp[i - 1][j - cost] + 1); // Taking the person
             }
         }
     }
@@ -85,40 +75,5 @@ int main() {
     cout << maximizeTrueLove(allAdvice, readiness, feelings, k) << endl;
     return 0;
 }
-```
 
----
-
-## 🧪 Sample I/O (for local testing)
-
-### `input.txt`
-
-```
-3 2
-5
--1 1 0 1 -1
-82
-true
-4
--1 -1 0 0
-85
-true
-3
-1 1 0
-78
-true
-```
-
-### Output:
-
-```
-2
-```
-
----
-
-## 🧠 Time & Space Complexity
-
-* **Time**: `O(n * k)` — Standard 0/1 Knapsack DP
-* **Space**: `O(n * k)` — Can be optimized to `O(k)` with 1D DP if needed
 
