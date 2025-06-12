@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+ * Problem: Can I Reach Library Before Canteen Closes?
+ * Author: Manoj Singh
+ * Description:
+ *   You are given N class sections with their durations.
+ *   You need to study at least L hours (i.e., L * 60 mins),
+ *   and reach the canteen before time C, within total day time T.
+ *   Return YES if possible, otherwise NO.
+ */
+
+int main() {
+    int n, l, c, t;
+    cin >> n >> l >> c >> t;
+
+    vector<int> sections(n);
+    int totalClassTime = 0;
+
+    for (int i = 0; i < n; ++i) {
+        cin >> sections[i];
+        totalClassTime += sections[i];
+    }
+
+    int libraryTime = l * 60;
+    int totalTimeUsed = totalClassTime + libraryTime;
+
+    // Time left after all commitments
+    int remainingTime = t - totalTimeUsed;
+
+    if (totalTimeUsed <= t && (totalTimeUsed <= c)) {
+        cout << "YES\n";
+    } else {
+        cout << "NO\n";
+    }
+
+    return 0;
+}
