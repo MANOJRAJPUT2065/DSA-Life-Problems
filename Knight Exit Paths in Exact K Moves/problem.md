@@ -1,7 +1,3 @@
-
-
-
-```markdown
 # Problem: Knight Exit Paths in Exact K Moves
 
 ## Difficulty: Medium 🔥  
@@ -17,7 +13,8 @@ Return the **number of possible paths** that move the knight **out of the board 
 
 ---
 
-## Standard Knight Moves:
+## Standard Knight Moves
+
 A knight can move in any of the following 8 ways from position `(i, j)`:
 
 ```
@@ -67,9 +64,4 @@ startRow = 0, startColumn = 0
 
 The knight can move out of the board in exactly 2 moves in 6 distinct ways.
 
-```
-
----
-
-Next, let me know when you're ready for `testcases.md`.
 ```
